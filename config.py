@@ -35,7 +35,7 @@ ships = {
 ship_directory = {
     'Healy': '/mnt/gdc/data/r2r/scratch/mil.uscg',
     'SallyRide': '/mnt/gdc/data/r2r/scratch/edu.ucsd.sio',
-    'Sikuliaq': '/mnt/gdc/data/r2r/scratch/edu.ucsd.sio',
+    'Sikuliaq': '/mnt/gdc/data/r2r/scratch/edu.uaf',
     'Sproul': '/mnt/gdc/data/r2r/scratch/edu.ucsd.sio',
     'Oceanus': '/mnt/gdc/data/r2r/scratch/edu.oregonstate'
 }

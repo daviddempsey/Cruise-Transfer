@@ -32,7 +32,7 @@ def compare_data_listings(cruise):  # compares listings on different servers
             stdout=subprocess.PIPE, shell=True)
         UAF_output, err = UAF_process.communicate()  # lists all UAF files
         SIO_process = subprocess.Popen(
-            "ls -ltraR /localdisk2/R2R/data/Sikuliaq/{} |egrep -v \
+            "ls -ltraR /mnt/gdc/data/r2r/scratch/edu.uaf/{} |egrep -v \
 '\.$|\.\.|\.:|\.\/|total|^d' |sed '/^$/d'".format(
                 cruise), stdout=subprocess.PIPE, shell=True)  # lists full tree
         SIO_output, err = SIO_process.communicate()  # lists all SIO files
@@ -83,7 +83,7 @@ r2r@untangle.coas.oregonstate.edu://{}/{}'.format(datadir_OSU, cruise),
             stdout=subprocess.PIPE, shell=True)
         OSU_output, err = OSU_process.communicate()  # lists all OSU files
         SIO_process = subprocess.Popen(
-            "ls -ltraR /localdisk2/R2R/data/Oceanus/{} |egrep -v \
+            "ls -ltraR /mnt/gdc/data/r2r/scratch/edu.oregonstate/{} |egrep -v \
 '\.$|\.\.|\.:|\.\/|total|^d' |sed '/^$/d'".format(
                 cruise),
             stdout=subprocess.PIPE, shell=True)  # lists full tree
