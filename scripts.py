@@ -9,7 +9,7 @@
 # Be mindful editing these
 
 from config import *
-import datetime
+from datetime import datetime
 import os
 
 
@@ -41,21 +41,21 @@ def list_from_abbreviation(args):  # lists cruises by ship
         for each in args: # iterates through arguments
             if each in scripps_ships: # checks if SIO ship
                 ship = ships[each] # identifies ship
-                #if '-v' in args:
-                #    print(datetime.now().strftime('%Y-%m-%dT%H:%M:%S: ')
-                #          + "Listing SIO cruises")
+                if '-v' in args:
+                    print(datetime.now().strftime('%Y-%m-%dT%H:%M:%S: ')
+                          + "Listing SIO cruises")
 
                     # lists out all SIO cruises that can be rsynced
                 list_SIO(ship)
 
-                    #if '-v' in args:
-                    #    print(datetime.now().strftime('%Y-%m-%dT%H:%M:%S: ')
-                            #  + "Finished listing SIO cruises")
+                if '-v' in args:
+                    print(datetime.now().strftime('%Y-%m-%dT%H:%M:%S: ')
+                              + "Finished listing SIO cruises")
 
-            #else: # unknown organization, cannot be listed
-             #   if '-v' in args:
-                    #print(datetime.now().strftime('%Y-%m-%dT%H:%M:%S: ')
-                    #      + "Unknown organization parameter")
+            else: # unknown organization, cannot be listed
+                if '-v' in args:
+                    print(datetime.now().strftime('%Y-%m-%dT%H:%M:%S: ')
+                          + "Unknown organization parameter")
 
 
 def list_SKQ():  # lists Sikuliaq cruises

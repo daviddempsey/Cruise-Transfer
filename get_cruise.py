@@ -1,8 +1,8 @@
 #!/usr/bin/env python
 import os
-from datetime import datetime
 from config import *
 from scripts import *
+from datetime import datetime
 import sys
 import logging
 
@@ -67,13 +67,6 @@ def identify_datadir(org): # identifies cruise organization data directory
     return datadir # returns string with organization data directory
 
 
-def identify_localdir(ship): # identifies cruise organization data directory
-    localdir = ''
-    if ship == 'Healy':
-        localdir = ship_directory[ship]
-    return localdir # returns string with organization data directory
-
-
 def rsync_cruises(cruise, ship, org): # runs rsync
     datadir = identify_datadir(org) # finds org data directory
 
@@ -81,7 +74,7 @@ def rsync_cruises(cruise, ship, org): # runs rsync
 
     # runs rsync for SIO
     if org == 'SIO':
-        localdir = identify_localdir(ship)
+        localdir = ship_directory[ship]
         rsync_txt_check = os.system(rsync_by_org[org][0].format(
             ship_title=ship, cruise_title=cruise, dir=localdir))
         rsync_cruise_check = os.system(
@@ -138,10 +131,10 @@ for i in range(len(args)): # extracts cruise ID from arguments
         cruise = args[i]
 
 os.chdir(log_dir) # creates log file
-#logging.basicConfig(format='%(asctime)s %(message)s', filename='%s' %
- #                   (datetime.now().strftime('%Y-%m-%dT%H:%M:%S_') +
-  #                   'get_cruise.py_' + cruise),
-   #                 level=logging.INFO)
+logging.basicConfig(format='%(asctime)s %(message)s', filename='%s' %
+                    (datetime.now().strftime('%Y-%m-%dT%H:%M:%S_') +
+                     'get_cruise.py_' + cruise),
+                    level=logging.INFO)
 logging.info('get_cruise.py executed')
 
 # parses command line arguments
