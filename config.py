@@ -10,8 +10,8 @@ SIO_cruise_path = "/mnt/gdc/data/r2r/scratch/edu.ucsd.sio/"
 OC_cruise_path = "/mnt/gdc/data/r2r/scratch/edu.oregonstate/"
 codedir = "/mnt/gdc/code/scripts/"
 operator_uaf = "edu.uaf"
-operator_sio = "edu.ucsd.sio/SR_2019"
-operator_hly = "mil.uscg/2019"
+operator_sio = "edu.ucsd.sio"
+operator_hly = "mil.uscg"
 operator_osu = "edu.oregonstate"
 shipment_id = "100010"
 scratch_dir = "/mnt/gdc/data/r2r/scratch/"
@@ -20,7 +20,7 @@ datadir_local = scratch_dir #CHANGE!!
 datadir_SIO = "/mnt/gdc/data/r2r/scratch/edu.ucsd.sio"
 datadir_OSU = "/mnt/data07/2019"
 datadir_UAF = "SKQDATA/"
-log_dir = "/mnt/gdc/code/cruise_transfer/log_files"
+log_dir = "/mnt/gdc/code/log_files"
 archive_dir = "/localdisk2/R2R/archive"
 size_per_part = '5000M'
 ships = {
@@ -44,10 +44,10 @@ orgs = ['SIO', 'OSU', 'UAF']
 rsync_by_org = {
     'SIO': ['nohup rsync --archive \
 rsync://somts.ucsd.edu/cruise_data/{ship_title}/\
-{cruise_title}.tar.bz2.md5.txt {dir}/{ship_title}',
+{cruise_title}.tar.bz2.md5.txt {dir}',
             'nohup rsync --archive  \
 rsync://somts.ucsd.edu/cruise_data/{ship_title}/{cruise_title}.tar.bz2 \
-{dir}/{ship_title} > {dir}/{ship_title}/{cruise_title}.rsynclist.txt'],
+{dir} > {dir}/{cruise_title}.rsynclist.txt'],
     'OSU': 'nohup rsync -are ssh r2r@untangle.coas.oregonstate.edu:{dir}/{cruise_title} ' + ship_directory['Oceanus'],
   'UAF': 'nohup rsync -av --progress share.sikuliaq.alaska.edu::SKQDATA/\
 {cruise_title}' + ship_directory['Sikuliaq'] + ' &> {dir}/{ship_title}/\
