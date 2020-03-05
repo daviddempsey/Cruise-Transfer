@@ -8,7 +8,7 @@
 HLY_cruise_path = "/mnt/gdc/data/r2r/scratch/mil.uscg/"
 SIO_cruise_path = "/mnt/gdc/data/r2r/scratch/edu.ucsd.sio/"
 OC_cruise_path = "/mnt/gdc/data/r2r/scratch/edu.oregonstate/"
-codedir = "/mnt/gdc/code/scripts/"
+codedir = "/mnt/gdc/code/cruise_transfer"
 operator_uaf = "edu.uaf"
 operator_sio = "edu.ucsd.sio"
 operator_hly = "mil.uscg"
@@ -50,8 +50,7 @@ rsync://somts.ucsd.edu/cruise_data/{ship_title}/{cruise_title}.tar.bz2 \
 {dir} > {dir}/{cruise_title}.rsynclist.txt'],
     'OSU': 'nohup rsync -are ssh r2r@untangle.coas.oregonstate.edu:{dir}/{cruise_title} ' + ship_directory['Oceanus'],
   'UAF': 'nohup rsync -av --progress share.sikuliaq.alaska.edu::SKQDATA/\
-{cruise_title}' + ship_directory['Sikuliaq'] + ' &> {dir}/{ship_title}/\
-{cruise_title}.txt'
+{cruise_title} {dir}' + ' &> {dir}/{cruise_title}.txt'
 }
 unread_args = ['.', '-', '/']
 org_from_cruise = {

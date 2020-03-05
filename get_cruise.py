@@ -89,9 +89,10 @@ def rsync_cruises(cruise, ship, org): # runs rsync
 
     # runs rsync for UAF
     if org == 'UAF':
+        localdir = ship_directory[ship]
         rsync_cruise_check = os.system(
-            rsync_by_org[org].format(ship_title=ship, dir=datadir_SIO,
-                                     skq_dir=datadir, cruise_title=cruise))
+            rsync_by_org[org].format(ship_title=ship, dir=localdir,
+                                     cruise_title=cruise))
 
     # logs that error occured
     if rsync_cruise_check != 0:
@@ -113,7 +114,7 @@ def rsync_cruises(cruise, ship, org): # runs rsync
 
 
 def read_list(list, function, args):
-    os.chdir(codedir);
+    os.chdir(codedir)
     file = open('{}'.format(list), 'r')  # opens list of cruises
     list = [line.rstrip('\n') for line in file]   # splits cruises into a list
     if '-v' in args:
