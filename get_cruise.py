@@ -22,6 +22,7 @@ import logging
 # -h shows what each flag does
 
 args = sys.argv
+script_dir = os.getcwd()
 
 def get_cruise(cruise):  # runs rsync based off of a cruise ID
     # finds ship and org based off of cruise
@@ -114,7 +115,7 @@ def rsync_cruises(cruise, ship, org): # runs rsync
 
 
 def read_list(list, function, args):
-    os.chdir(codedir)
+    os.chdir(script_dir)
     file = open('{}'.format(list), 'r')  # opens list of cruises
     list = [line.rstrip('\n') for line in file]   # splits cruises into a list
     if '-v' in args:
