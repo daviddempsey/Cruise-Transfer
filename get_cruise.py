@@ -132,15 +132,24 @@ for i in range(len(args)): # extracts cruise ID from arguments
     if args[i] not in unread_args and args[i] != 'get_cruise.py':
         cruise = args[i]
 
-os.chdir(log_dir) # creates log file
-logging.basicConfig(format='%(asctime)s %(message)s', filename='%s' %
-                    (datetime.now().strftime('%Y-%m-%dT%H:%M:%S_') +
-                     'get_cruise.py_' + cruise),
-                    level=logging.INFO)
-logging.info('get_cruise.py executed')
 
 # parses command line arguments
 if len(args) > 1:
+    if '-h' in args: # outputs usage information
+        print('Input an argument: ')
+        print('-l runs from list')
+        print('[cruise_id] runs a cruise ID')
+        print('-a [ship abbreviation] lists all logged cruises by ship')
+        print('-v will output process updates to the console')
+        exit()
+
+    os.chdir(log_dir) # creates log file
+    logging.basicConfig(format='%(asctime)s %(message)s', filename='%s' %
+                        (datetime.now().strftime('%Y-%m-%dT%H:%M:%S_') +
+                         'get_cruise.py_' + cruise),
+                        level=logging.INFO)
+    logging.info('get_cruise.py executed')
+
     if '-l' in args: # runs list of cruises
         list = 'list.txt'
         for i in range(len(args)):
@@ -151,12 +160,6 @@ if len(args) > 1:
     elif '-a' in args: # prints which cruises can be rsynced
         list_from_abbreviation(args)
 
-    elif '-h' in args: # outputs usage information
-        print('Input an argument: ')
-        print('-l runs from list')
-        print('[cruise_id] runs a cruise ID')
-        print('-a [ship abbreviation] lists all logged cruises by ship')
-        print('-v will output process updates to the console')
 
     else: # runs cruise ID if no other args
         run_cruise_ID(cruise)
