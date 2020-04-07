@@ -117,6 +117,7 @@ def rsync_cruises(cruise, ship, org): # runs rsync
 def read_list(list, function, args):
     os.chdir(script_dir)
     file = open('{}'.format(list), 'r')  # opens list of cruises
+    os.chdir(log_dir)
     list = [line.rstrip('\n') for line in file]   # splits cruises into a list
     if '-v' in args:
         print(datetime.now().strftime('%Y-%m-%dT%H:%M:%S: ') +
