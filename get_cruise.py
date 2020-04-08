@@ -80,20 +80,24 @@ def rsync_cruises(cruise, ship, org): # runs rsync
             ship_title=ship, cruise_title=cruise, dir=localdir))
         rsync_cruise_check = os.system(
             rsync_by_org[org][1].format(ship_title=ship,
-                                        cruise_title=cruise, dir=localdir))
+                                        cruise_title=cruise, dir=localdir)
+                + " | tee -a {}/{}.rsynclist.txt {}/{}".format(
+                    localdir, cruise, log_dir, logfile))
 
     # runs rsync for Oregon State
     if org == 'OSU':
         rsync_cruise_check = os.system(
             rsync_by_org[org].format(cruise_title=cruise, dir=datadir)
-            + " > /mnt/gdc/code/scripts/errorChecking")
+            + " | tee -a {}/{}".format(log_dir, logfile) + " > /dev/null")
 
     # runs rsync for UAF
     if org == 'UAF':
         localdir = ship_directory[ship]
         rsync_cruise_check = os.system(
             rsync_by_org[org].format(ship_title=ship, dir=localdir,
-                                     cruise_title=cruise))
+                                     cruise_title=cruise)
+                + " | tee -a {}/{}.txt {}/{}".format(
+                    localdir, cruise, log_dir, logfile))
 
     # logs that error occured
     if rsync_cruise_check != 0:
@@ -112,6 +116,9 @@ def rsync_cruises(cruise, ship, org): # runs rsync
         if '-v' in args:
             print('rsync successfully executed for cruise ' + cruise)
         logging.info('rsync successfully executed for cruise ' + cruise)
+    
+    errorlogfile = logfile + "_errors"
+    os.system("grep -e error -e failed {}/{} >> ".format(log_dir, logfile))
 
 
 def read_list(list, function, args):
@@ -145,9 +152,9 @@ if len(args) > 1:
         exit()
 
     os.chdir(log_dir) # creates log file
+    logfile = datetime.now().strftime('%Y-%m-%dT%H:%M:%S_') + 'get_cruise.py_' + cruise
     logging.basicConfig(format='%(asctime)s %(message)s', filename='%s' %
-                        (datetime.now().strftime('%Y-%m-%dT%H:%M:%S_') +
-                         'get_cruise.py_' + cruise),
+                        (logfile),
                         level=logging.INFO)
     logging.info('get_cruise.py executed')
 

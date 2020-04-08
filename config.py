@@ -42,15 +42,16 @@ ship_directory = {
 scripps_ships = ['SP', 'RR', 'SR', 'HLY', 'FL']
 orgs = ['SIO', 'OSU', 'UAF']
 rsync_by_org = {
-    'SIO': ['nohup rsync --archive \
+    'SIO': ['nohup rsync -v --archive \
 rsync://somts.ucsd.edu/cruise_data/{ship_title}/\
 {cruise_title}.tar.bz2.md5.txt {dir}',
-            'nohup rsync --archive  \
+            'nohup rsync -v --archive  \
 rsync://somts.ucsd.edu/cruise_data/{ship_title}/{cruise_title}.tar.bz2 \
-{dir} > {dir}/{cruise_title}.rsynclist.txt'],
-    'OSU': 'nohup rsync -are ssh r2r@untangle.coas.oregonstate.edu:{dir}/{cruise_title} ' + ship_directory['Oceanus'],
+{dir}'],
+    'OSU': 'nohup rsync -avre ssh r2r@untangle.coas.oregonstate.edu:{dir}/{cruise_title} ' \
+    + ship_directory['Oceanus'] + "--delete-after",
   'UAF': 'nohup rsync -av --progress share.sikuliaq.alaska.edu::SKQDATA/\
-{cruise_title} {dir}' + ' &> {dir}/{cruise_title}.txt'
+{cruise_title} {dir}'
 }
 unread_args = ['.', '-', '/']
 org_from_cruise = {
