@@ -23,6 +23,7 @@ import logging
 
 args = sys.argv
 script_dir = os.getcwd()
+delete = ''
 
 def get_cruise(cruise):  # runs rsync based off of a cruise ID
     # finds ship and org based off of cruise
@@ -81,6 +82,7 @@ def rsync_cruises(cruise, ship, org): # runs rsync
         rsync_cruise_check = os.system(
             rsync_by_org[org][1].format(ship_title=ship,
                                         cruise_title=cruise, dir=localdir)
+                + delete
                 + " | tee -a {}/{}.rsynclist.txt {}/{}".format(
                     localdir, cruise, log_dir, logfile))
 
@@ -88,6 +90,7 @@ def rsync_cruises(cruise, ship, org): # runs rsync
     if org == 'OSU':
         rsync_cruise_check = os.system(
             rsync_by_org[org].format(cruise_title=cruise, dir=datadir)
+            + delete
             + " | tee -a {}/{}".format(log_dir, logfile) + " > /dev/null")
 
     # runs rsync for UAF
@@ -96,6 +99,7 @@ def rsync_cruises(cruise, ship, org): # runs rsync
         rsync_cruise_check = os.system(
             rsync_by_org[org].format(ship_title=ship, dir=localdir,
                                      cruise_title=cruise)
+                + delete
                 + " | tee -a {}/{}.txt {}/{}".format(
                     localdir, cruise, log_dir, logfile))
 
@@ -118,7 +122,7 @@ def rsync_cruises(cruise, ship, org): # runs rsync
         logging.info('rsync successfully executed for cruise ' + cruise)
     
     errorlogfile = logfile + "_errors"
-    os.system("grep -e error -e failed {}/{} >> ".format(log_dir, logfile))
+    os.system("grep -e error -e failed {}/{} >> {}".format(log_dir, logfile, errorlogfile))
 
 
 def read_list(list, function, args):
@@ -137,7 +141,9 @@ def read_list(list, function, args):
 
 cruise = ''
 for i in range(len(args)): # extracts cruise ID from arguments
-    if args[i] not in unread_args and args[i] != 'get_cruise.py':
+    if "-l" in args:
+        cruise = 'list.txt'
+    elif args[i] not in unread_args and args[i] != 'get_cruise.py':
         cruise = args[i]
 
 
@@ -158,7 +164,11 @@ if len(args) > 1:
                         level=logging.INFO)
     logging.info('get_cruise.py executed')
 
+    if '-d' in args:
+        logging.info('Rsync flag --delete-after enabled')
+        delete = "--delete-after"
     if '-l' in args: # runs list of cruises
+        logging.info('Reading from list')
         list = 'list.txt'
         for i in range(len(args)):
             if args[i] == "-l":

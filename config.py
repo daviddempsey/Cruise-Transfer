@@ -53,7 +53,7 @@ rsync://somts.ucsd.edu/cruise_data/{ship_title}/{cruise_title}.tar.bz2 \
   'UAF': 'nohup rsync -av --progress share.sikuliaq.alaska.edu::SKQDATA/\
 {cruise_title} {dir}'
 }
-unread_args = ['.', '-', '/']
+unread_args = ['.', '-', '/', '-d']
 org_from_cruise = {
     'SP': 'SIO',
     'RR': 'SIO',
