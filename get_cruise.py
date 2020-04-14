@@ -188,3 +188,4 @@ else: # outputs usage information if no args given
     print('[cruise_id] runs a cruise ID')
     print('-a [ship abbreviation] lists all logged cruises by ship')
     print('-v will output process updates to the console')
+    print('-d will delete local files that weren\'t found on the remote server')
