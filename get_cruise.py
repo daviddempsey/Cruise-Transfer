@@ -166,7 +166,7 @@ if len(args) > 1:
 
     if '-d' in args:
         logging.info('Rsync flag --delete-after enabled')
-        delete = "--delete-after"
+        delete = " --delete-after"
     if '-l' in args: # runs list of cruises
         logging.info('Reading from list')
         list = 'list.txt'

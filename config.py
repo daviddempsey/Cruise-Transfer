@@ -49,7 +49,7 @@ rsync://somts.ucsd.edu/cruise_data/{ship_title}/\
 rsync://somts.ucsd.edu/cruise_data/{ship_title}/{cruise_title}.tar.bz2 \
 {dir}'],
     'OSU': 'nohup rsync -avre ssh r2r@untangle.coas.oregonstate.edu:{dir}/{cruise_title} ' \
-    + ship_directory['Oceanus'] + "--delete-after",
+    + ship_directory['Oceanus'],
   'UAF': 'nohup rsync -av --progress share.sikuliaq.alaska.edu::SKQDATA/\
 {cruise_title} {dir}'
 }
