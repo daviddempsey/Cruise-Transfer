@@ -37,7 +37,8 @@ ship_directory = {
     'SallyRide': '/mnt/gdc/data/r2r/scratch/edu.ucsd.sio',
     'Sikuliaq': '/mnt/gdc/data/r2r/scratch/edu.uaf',
     'Sproul': '/mnt/gdc/data/r2r/scratch/edu.ucsd.sio',
-    'Oceanus': '/mnt/gdc/data/r2r/scratch/edu.oregonstate'
+    'Oceanus': '/mnt/gdc/data/r2r/scratch/edu.oregonstate',
+    'Revelle': '/mnt/gdc/data/r2r/scratch/edu.ucsd.sio'
 }
 scripps_ships = ['SP', 'RR', 'SR', 'HLY', 'FL']
 orgs = ['SIO', 'OSU', 'UAF']
