@@ -20,6 +20,7 @@ import logging
 # -a lists all cruises under an abbreviation (ex: "SP")
 # -v will output logs to the console
 # -h shows what each flag does
+# -d will delete local files in same directory that were not pulled over
 
 args = sys.argv
 script_dir = os.getcwd()
@@ -155,6 +156,7 @@ if len(args) > 1:
         print('[cruise_id] runs a cruise ID')
         print('-a [ship abbreviation] lists all logged cruises by ship')
         print('-v will output process updates to the console')
+        print('-d will delete local files in same directory that were not pulled over')
         exit()
 
     os.chdir(log_dir) # creates log file
@@ -189,3 +191,4 @@ else: # outputs usage information if no args given
     print('-a [ship abbreviation] lists all logged cruises by ship')
     print('-v will output process updates to the console')
     print('-d will delete local files that weren\'t found on the remote server')
+    print('-d will delete local files in same directory that were not pulled over')
