@@ -117,6 +117,50 @@ r2r@untangle.coas.oregonstate.edu://{}/{}'.format(datadir_OSU, cruise),
                       len(SIO_output.split('\n'))))
             logging.info('{} file count on OSU system: {}'.format(cruise,
                       len(OSU_output.split('\n'))))
+    if org == 'UW':  # for University of Washington cruises
+        UW_process = subprocess.Popen(
+            'rsync -r \
+r2r@martech.ocean.washington.edu:/Archives/TGT/{}'.format(cruise),
+            stdout=subprocess.PIPE, shell=True)
+        UW_output, err = UW_process.communicate()  # lists all UW files
+        SIO_process = subprocess.Popen(
+            "ls -ltraR /mnt/gdc/data/r2r/scratch/edu.washington/{} |egrep -v \
+'\.$|\.\.|\.:|\.\/|total|^d' |sed '/^$/d'".format(
+                cruise),
+            stdout=subprocess.PIPE, shell=True)  # lists full tree
+        SIO_output, err = SIO_process.communicate()  # lists all SIO files
+        if len(UW_output.split('\n')) == len(SIO_output.split('\n')):
+            if '-v' in args:
+                print(datetime.now().strftime('%Y-%m-%dT%H:%M:%S: ') +
+                      'The data listings match up for {}'.format(cruise))
+                print(datetime.now().strftime('%Y-%m-%dT%H:%M:%S: ') +
+                      '{} file count on local system: {}'.format(cruise,
+                      len(SIO_output.split('\n'))))
+                print(datetime.now().strftime('%Y-%m-%dT%H:%M:%S: ') +
+                      '{} file count on UW system: {}'.format(cruise,
+                      len(UW_output.split('\n'))))
+            logging.info('The data listings match up for {}\n'.format(cruise))
+            logging.info('{} file count on local system: {}'.format(cruise,
+                      len(SIO_output.split('\n'))))
+            logging.info('{} file count on UW system: {}'.format(cruise,
+                      len(UW_output.split('\n'))))
+        else:
+            if '-v' in args:
+                print('ERROR: ' +
+                      datetime.now().strftime('%Y-%m-%dT%H:%M:%S: ') +
+                      'The data listings \
+                      DO NOT match up for {}'.format(cruise))
+                print(datetime.now().strftime('%Y-%m-%dT%H:%M:%S: ') +
+                      '{} file count on local system: {}'.format(cruise,
+                      len(SIO_output.split('\n'))))
+                print(datetime.now().strftime('%Y-%m-%dT%H:%M:%S: ') +
+                      '{} file count on UW system: {}'.format(cruise,
+                      len(UW_output.split('\n'))))
+            logging.error('ERROR: The data listings DO NOT match up for {}\n'.format(cruise))
+            logging.info('{} file count on local system: {}'.format(cruise,
+                      len(SIO_output.split('\n'))))
+            logging.info('{} file count on UW system: {}'.format(cruise,
+                      len(UW_output.split('\n'))))
     else:
         if '-v' in args:
             print('ERROR: ' + datetime.now().strftime('%Y-%m-%dT%H:%M:%S: ') +

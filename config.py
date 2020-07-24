@@ -16,8 +16,9 @@ operator_osu = "edu.oregonstate"
 shipment_id = "100010"
 scratch_dir = "/mnt/gdc/data/r2r/scratch/"
 # datadir_local = scratch_dir + operator_uaf + shipment_id
-datadir_local = scratch_dir #CHANGE!!
+datadir_local = scratch_dir  # CHANGE!!
 datadir_SIO = "/mnt/gdc/data/r2r/scratch/edu.ucsd.sio"
+datadir_UW = "/mnt/gdc/data/r2r/scratch/edu.washington"
 datadir_OSU = "/mnt/data07/2019"
 datadir_UAF = "SKQDATA/"
 log_dir = "/mnt/gdc/code/log_files/"
@@ -30,7 +31,8 @@ ships = {
     'HLY': 'Healy',
     'FL': 'Flip',
     'OC': 'Oceanus',
-    'SKQ': 'Sikuliaq'
+    'SKQ': 'Sikuliaq',
+    'TN': 'Thompson'
 }
 ship_directory = {
     'Healy': '/mnt/gdc/data/r2r/scratch/mil.uscg',
@@ -38,7 +40,8 @@ ship_directory = {
     'Sikuliaq': '/mnt/gdc/data/r2r/scratch/edu.uaf',
     'Sproul': '/mnt/gdc/data/r2r/scratch/edu.ucsd.sio',
     'Oceanus': '/mnt/gdc/data/r2r/scratch/edu.oregonstate',
-    'Revelle': '/mnt/gdc/data/r2r/scratch/edu.ucsd.sio'
+    'Revelle': '/mnt/gdc/data/r2r/scratch/edu.ucsd.sio',
+    'Thompson': '/mnt/gdc/data/r2r/scratch/edu.washington'
 }
 scripps_ships = ['SP', 'RR', 'SR', 'HLY', 'FL']
 orgs = ['SIO', 'OSU', 'UAF']
@@ -49,10 +52,11 @@ rsync://somts.ucsd.edu/cruise_data/{ship_title}/\
             'nohup rsync -v --archive  \
 rsync://somts.ucsd.edu/cruise_data/{ship_title}/{cruise_title}.tar.bz2 \
 {dir}'],
-    'OSU': 'nohup rsync -avre ssh r2r@untangle.coas.oregonstate.edu:{dir}/{cruise_title} ' \
+    'OSU': 'nohup rsync -avre ssh r2r@untangle.coas.oregonstate.edu:{dir}/{cruise_title} '
     + ship_directory['Oceanus'],
-  'UAF': 'nohup rsync -av --progress share.sikuliaq.alaska.edu::SKQDATA/\
-{cruise_title} {dir}'
+    'UAF': 'nohup rsync -av --progress share.sikuliaq.alaska.edu::SKQDATA/\
+{cruise_title} {dir}',
+    'UW': 'nohup rsync -avr r2r@martech.ocean.washington.edu:/Archives/TGT/{cruise_title} {dir}'
 }
 unread_args = ['.', '-', '/', '-d']
 org_from_cruise = {
@@ -62,7 +66,8 @@ org_from_cruise = {
     'HLY': 'SIO',
     'FL': 'SIO',
     'OC': 'OSU',
-    'SKQ': 'UAF'
+    'SKQ': 'UAF',
+    'TN': 'UW'
 }
 unread_args = ['.', '-', '/']
 op_from_cruise = {
