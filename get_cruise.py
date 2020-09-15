@@ -92,9 +92,10 @@ def rsync_cruises(cruise, ship, org):  # runs rsync
     # runs rsync for Oregon State
     if org == 'OSU':
         rsync_cruise_check = os.system(
-            rsync_by_org[org].format(cruise_title=cruise, dir=datadir)
+            rsync_by_org[org][0].format(cruise_title=cruise, dir=datadir)
             + delete
             + " | tee -a {}/{}".format(log_dir, logfile) + " > /dev/null")
+
 
     # runs rsync for UAF
     if org == 'UAF':
@@ -109,10 +110,16 @@ def rsync_cruises(cruise, ship, org):  # runs rsync
     # runs rsync for UW
     if org == 'UW':
         localdir = ship_directory[ship]
-        rsync_cruise_check = os.system(
-            rsync_by_org[org].format(cruise_title=cruise, dir=localdir)
-            + delete
-            + " | tee -a {}/{}".format(log_dir, logfile) + " > /dev/null")
+        if cruise[:2].upper() == 'TN':
+            rsync_cruise_check = os.system(
+                rsync_by_org[org][0].format(cruise_title=cruise, dir=datadir)
+                + delete
+                + " | tee -a {}/{}".format(log_dir, logfile) + " > /dev/null")
+        else:
+            rsync_cruise_check = os.system(
+                rsync_by_org[org][1].format(cruise_title=cruise, dir=datadir)
+                + delete
+                + " | tee -a {}/{}".format(log_dir, logfile) + " > /dev/null")
 
     # logs that error occured
     if rsync_cruise_check != 0:

@@ -19,7 +19,7 @@ scratch_dir = "/mnt/gdc/data/r2r/scratch/"
 datadir_local = scratch_dir  # CHANGE!!
 datadir_SIO = "/mnt/gdc/data/r2r/scratch/edu.ucsd.sio"
 datadir_UW = "/mnt/gdc/data/r2r/scratch/edu.washington"
-datadir_OSU = "/mnt/data07/2019"
+datadir_OSU = "/mnt/data07/2020"
 datadir_UAF = "SKQDATA/"
 log_dir = "/mnt/gdc/code/log_files/"
 archive_dir = "/localdisk2/R2R/archive"
@@ -32,7 +32,8 @@ ships = {
     'FL': 'Flip',
     'OC': 'Oceanus',
     'SKQ': 'Sikuliaq',
-    'TN': 'Thompson'
+    'TN': 'Thompson',
+    'RC': 'Rachel Carson'
 }
 ship_directory = {
     'Healy': '/mnt/gdc/data/r2r/scratch/mil.uscg',
@@ -41,7 +42,8 @@ ship_directory = {
     'Sproul': '/mnt/gdc/data/r2r/scratch/edu.ucsd.sio',
     'Oceanus': '/mnt/gdc/data/r2r/scratch/edu.oregonstate',
     'Revelle': '/mnt/gdc/data/r2r/scratch/edu.ucsd.sio',
-    'Thompson': '/mnt/gdc/data/r2r/scratch/edu.washington'
+    'Thompson': '/mnt/gdc/data/r2r/scratch/edu.washington',
+    'Rachel Carson': '/mnt/gdc/data/r2r/scratch/edu.washington'
 }
 scripps_ships = ['SP', 'RR', 'SR', 'HLY', 'FL']
 orgs = ['SIO', 'OSU', 'UAF']
@@ -56,7 +58,8 @@ rsync://somts.ucsd.edu/cruise_data/{ship_title}/{cruise_title}.tar.bz2 \
     + ship_directory['Oceanus'],
     'UAF': 'nohup rsync -av --progress share.sikuliaq.alaska.edu::SKQDATA/\
 {cruise_title} {dir}',
-    'UW': 'nohup rsync -avr r2r@martech.ocean.washington.edu:/Archives/TGT/{cruise_title} {dir}'
+    'UW': ['nohup rsync -avr r2r@martech.ocean.washington.edu:/Archives/TGT/{cruise_title} {dir}',
+            'nohup rsync -avr r2r@martech.ocean.washington.edu:/Archives/RC/{cruise_title} {dir}']
 }
 unread_args = ['.', '-', '/', '-d']
 org_from_cruise = {
@@ -67,7 +70,8 @@ org_from_cruise = {
     'FL': 'SIO',
     'OC': 'OSU',
     'SKQ': 'UAF',
-    'TN': 'UW'
+    'TN': 'UW',
+    'RC': 'UW'
 }
 unread_args = ['.', '-', '/']
 op_from_cruise = {
