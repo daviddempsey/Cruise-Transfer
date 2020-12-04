@@ -15,7 +15,7 @@ import logging
 #
 # ## Usage:
 # [cruise id] runs a cruise ID (ex: RR1801)
-# -l [no argument] pulls all cruises off of a list (in /code/)
+# -l [optional list argument] pulls all cruises off of a list (in /code/)
 # (default list: list.txt)
 # -a lists all cruises under an abbreviation (ex: "SP")
 # -v will output logs to the console
@@ -92,7 +92,7 @@ def rsync_cruises(cruise, ship, org):  # runs rsync
     # runs rsync for Oregon State
     if org == 'OSU':
         rsync_cruise_check = os.system(
-            rsync_by_org[org][0].format(cruise_title=cruise, dir=datadir)
+            rsync_by_org[org].format(cruise_title=cruise, dir=datadir)
             + delete
             + " | tee -a {}/{}".format(log_dir, logfile) + " > /dev/null")
 

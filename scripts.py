@@ -94,6 +94,7 @@ def unbzip(cruise_file_path):  # unbzips a .bz2 file
 
 
 def auto_identify(cruise):
+    print(cruise)
     ship = ships[get_ship_abbreviation(cruise).upper()]
     org = org_from_cruise[get_ship_abbreviation(cruise).upper()]
     return ship, org
