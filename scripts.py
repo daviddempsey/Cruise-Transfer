@@ -3,10 +3,6 @@
 # scripts.py
 # Created by David Dempsey
 # email: ddempsey@ucsd.edu
-#
-# ## Purpose:
-# Miscellaneous functions used across multiple scripts.
-# Be mindful editing these
 
 from config import *
 from datetime import datetime
@@ -59,13 +55,11 @@ def list_from_abbreviation(args):  # lists cruises by ship
 
 
 def list_SKQ():  # lists Sikuliaq cruises
-    os.system('rsync share.sikuliaq.alaska.edu::SKQDATA/')
+    os.system(rsync_list_SKQ)
 
 
 def list_SIO(ship):  # lists Scripps cruises by ship
-    os.system('rsync --archive \
-    rsync://somts.ucsd.edu/cruise_data/{}'.format(ship))
-
+    os.system(rsync_list_SIO + ship)
 
 def extract_tar_bz2(cruise): # extracts tarred cruise data
     tar_file = cruise + '.tar.bz2' # file name of zipped tar

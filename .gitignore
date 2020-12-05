@@ -4,3 +4,4 @@ log_files
 *.txt
 list
 list2
+config.py

@@ -61,6 +61,8 @@ rsync://somts.ucsd.edu/cruise_data/{ship_title}/{cruise_title}.tar.bz2 \
     'UW': ['nohup rsync -avr r2r@martech.ocean.washington.edu:/Archives/TGT/{cruise_title} {dir}',
             'nohup rsync -avr r2r@martech.ocean.washington.edu:/Archives/RC/{cruise_title} {dir}']
 }
+rsync_list_SKQ = 'rsync share.sikuliaq.alaska.edu::SKQDATA/'
+rsync_list_SIO = 'rsync --archive rsync://somts.ucsd.edu/cruise_data/'
 unread_args = ['.', '-', '/', '-d']
 org_from_cruise = {
     'SP': 'SIO',
