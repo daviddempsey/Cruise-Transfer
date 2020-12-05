@@ -15,7 +15,7 @@ import logging
 #
 # ## Usage:
 # [cruise id] runs a cruise ID (ex: RR1801)
-# -l [optional list argument] pulls all cruises off of a list (in /code/)
+# -l [optional list argument] pulls all cruises off of a list
 # (default list: list.txt)
 # -a lists all cruises under an abbreviation (ex: "SP")
 # -v will output logs to the console
@@ -204,9 +204,8 @@ if len(args) > 1:
 
 else:  # outputs usage information if no args given
     print('Input an argument: ')
-    print('-l runs from list')
+    print('-l [optional list argument] pulls all cruises off of a list (default list: list.txt)')
     print('[cruise_id] runs a cruise ID')
     print('-a [ship abbreviation] lists all logged cruises by ship')
     print('-v will output process updates to the console')
-    print('-d will delete local files that weren\'t found on the remote server')
     print('-d will delete local files in same directory that were not pulled over')
