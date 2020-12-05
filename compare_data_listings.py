@@ -30,13 +30,12 @@ def compare_data_listings(cruise):  # compares listings on different servers
         org = 'OSU'
     if org == 'UAF':  # for Sikuliaq cruises
         UAF_process = subprocess.Popen(
-            'rsync -r share.sikuliaq.alaska.edu::SKQDATA/{}'.format(cruise),
+            uaf_full_listings_remote + cruise,
             stdout=subprocess.PIPE, shell=True)
         UAF_output, err = UAF_process.communicate()  # lists all UAF files
         SIO_process = subprocess.Popen(
-            "ls -ltraR /mnt/gdc/data/r2r/scratch/edu.uaf/{} |egrep -v \
-'\.$|\.\.|\.:|\.\/|total|^d' |sed '/^$/d'".format(
-                cruise), stdout=subprocess.PIPE, shell=True)  # lists full tree
+            uaf_full_listings_local + cruise + " |egrep -v \
+'\.$|\.\.|\.:|\.\/|total|^d' |sed '/^$/d'", stdout=subprocess.PIPE, shell=True)  # lists full tree
         SIO_output, err = SIO_process.communicate()  # lists all SIO files
         if len(UAF_output.split('\n')) == len(SIO_output.split('\n')):
             if '-v' in args:
@@ -75,14 +74,12 @@ def compare_data_listings(cruise):  # compares listings on different servers
                       len(UAF_output.split('\n'))))
     if org == 'OSU':  # for Oceanus cruises
         OSU_process = subprocess.Popen(
-            'rsync -r \
-r2r@untangle.coas.oregonstate.edu://{}/{}'.format(datadir_OSU, cruise),
+        osu_full_listings_remote + '{}/{}'.format(datadir_OSU, cruise),
             stdout=subprocess.PIPE, shell=True)
         OSU_output, err = OSU_process.communicate()  # lists all OSU files
         SIO_process = subprocess.Popen(
-            "ls -ltraR /mnt/gdc/data/r2r/scratch/edu.oregonstate/{} |egrep -v \
-'\.$|\.\.|\.:|\.\/|total|^d' |sed '/^$/d'".format(
-                cruise),
+            osu_full_listings_local + cruise + " |egrep -v \
+'\.$|\.\.|\.:|\.\/|total|^d' |sed '/^$/d'",
             stdout=subprocess.PIPE, shell=True)  # lists full tree
         SIO_output, err = SIO_process.communicate()  # lists all SIO files
         if len(OSU_output.split('\n')) == len(SIO_output.split('\n')):
@@ -118,15 +115,12 @@ r2r@untangle.coas.oregonstate.edu://{}/{}'.format(datadir_OSU, cruise),
             logging.info('{} file count on OSU system: {}'.format(cruise,
                       len(OSU_output.split('\n'))))
     if org == 'UW':  # for University of Washington cruises
-        UW_process = subprocess.Popen(
-            'rsync -r \
-r2r@martech.ocean.washington.edu:/Archives/TGT/{}'.format(cruise),
+        UW_process = subprocess.Popen(uw_full_listings_remote + cruise,
             stdout=subprocess.PIPE, shell=True)
         UW_output, err = UW_process.communicate()  # lists all UW files
         SIO_process = subprocess.Popen(
-            "ls -ltraR /mnt/gdc/data/r2r/scratch/edu.washington/{} |egrep -v \
-'\.$|\.\.|\.:|\.\/|total|^d' |sed '/^$/d'".format(
-                cruise),
+            uw_full_listings_local + cruise + " |egrep -v \
+'\.$|\.\.|\.:|\.\/|total|^d' |sed '/^$/d'",
             stdout=subprocess.PIPE, shell=True)  # lists full tree
         SIO_output, err = SIO_process.communicate()  # lists all SIO files
         if len(UW_output.split('\n')) == len(SIO_output.split('\n')):
